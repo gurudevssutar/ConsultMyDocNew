@@ -1,0 +1,61 @@
+{%extends 'layout.html'%}
+
+
+{%block body%}
+    <h1>Dashboard <small> Welcome {{session.name}}</small> </h1>
+    <div class="jumbotron">
+      <nav class="navbar navbar-light bg-light justify-content-between" style="float: right;">
+        <form class="form-inline" action="/profile/" method="POST">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search User" aria-label="Search" id="search" name="search">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+      </nav>
+      {% if session.userrole %}
+        {% else %}
+          <a class="btn btn-success" href="/add_article">Ask question</a>
+      {% endif %}
+      <br><br>
+      <hr>
+      <table class="table table-striped" >
+        <tr style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)">
+          <th>ID</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Date and Time</th>
+          <th></th>
+          <th></th>
+          <th>Answered</th>
+        </tr>
+        {%for article in articles%}
+        <tr>
+          <td><a style="text-decoration: none; color: black;" href="article/{{article.id}}">{{article.id}}</a></td>
+          <td><a style="text-decoration: none; color: black;" href="article/{{article.id}}">{{article.title}}</a></td>
+          <td><a style="text-decoration: none; color: black;" href="article/{{article.id}}">{{article.author}}</a></td>
+          <td><a style="text-decoration: none; color: black;" href="article/{{article.id}}">{{article.create_date}}</a></td>
+          {% if session.userrole %}
+            <td><a href="/edit_article/{{article.id}}" class="btn btn-light">Answer question</a></td>
+            <td></td>
+            {% else %}
+                {% if session.username==article.author%}
+                  <td>
+                  <form action="{{url_for('delete_article', id=article.id)}}" method="post">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="submit" value="Delete" class="btn btn-danger">
+                  </form>
+                  </td>
+                  <td></td>
+            {% else %}
+            <td></td>
+            <td></td>
+            {%endif%}
+          {% endif %}
+          {% if article.answered=="Answered"%}
+          <td><a style="text-decoration: none; color: #00cc00;" href="article/{{article.id}}">{{article.answered}}</a></td>
+          {% else %}
+          <td><a style="text-decoration: none; color: #ff0000;" href="article/{{article.id}}">{{article.answered}}</a></td>
+          {%endif%}
+        </tr>
+        {%endfor%}
+      </table>
+    </div>
+{%endblock%}

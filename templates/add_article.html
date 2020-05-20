@@ -1,0 +1,27 @@
+{%extends 'layout.html'%}
+
+
+{%block body%}
+
+    <div class="jumbotron">
+      <h1>Ask question</h1>
+      {% from "includes/_formhelpers.html" import render_field %}
+      <form action="" method="post">
+        <div class="form-group">
+          {{render_field(form.title,class_="form-control")}}
+        </div>
+        <div class="form-group">
+          {{render_field(form.body,class_="form-control",id="editor")}}
+        </div>
+        <div class="form-group">
+          <label>Type of Question</label><br />
+          <select id="type" name="type">
+            <option value="Public">Public</option>
+            <option value="Personal">Personal</option>
+          </select>
+        </div>
+        <button type="submit" value="Submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+
+{%endblock%}

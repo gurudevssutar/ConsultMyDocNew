@@ -1,0 +1,13 @@
+{% extends 'layout.html' %}
+
+{%block body%}
+  <div class="jumbotron text-center" style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)">
+      <h1>Welcome to ConsultMyDoc</h1>
+      <p>Online platform for your health related queries.</p>
+      <br>
+      {%if session.logged_in==NULL%}
+        <a href="/register" class="btn btn-lg btn-primary">Register</a>
+        <a href="/login" class="btn btn-lg btn-success">Login</a>
+      {%endif%}
+  </div>
+{%endblock%}

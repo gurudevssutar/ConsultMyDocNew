@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>{{article.title}}</h1>
+  {% if session.userrole %}
+  <div>
+    <a href="/edit_article/{{article.id}}" class="btn btn-success" style="float: right;">Answer question</a>
+  </div>
+  {% endif %}
+  {% if session.username==article.author %}
+  <form action="{{url_for('delete_article', id=article.id)}}" method="post" style="float: right;">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="submit" value="Delete" class="btn btn-danger">
+  </form><p>
+  {%endif%}
+  {% if session.isanswered %}
+  <span style="color:  #00cc00;">{{article.answered}}</span>
+  {% else %}
+  <span style="color:  #ff0000;">{{article.answered}}</span>
+  {% endif %}
+  <p>Asked by {{article.author}} on {{article.create_date}}</p>
+  <hr>
+  <div>
+    {{article.body | safe}}
+  </div>
+  {% if session.isanswered %}
+    <h3>Answers</h3><hr>
+    {%for article in doctorans %}
+    <hr>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item" style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)">{{article.ans_body}}
+        <span class="badge badge-dark badge-pill float-right">Answered by {{article.Doctor_username}} on {{article.create_date}}</span>
+      </li>
+    </ul>
+  {%endfor%}
+  {% endif %}
+{%endblock%}

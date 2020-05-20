@@ -1,0 +1,18 @@
+{%extends 'layout.html'%}
+
+
+{%block body%}
+  <div class="jumbotron">
+    <h2>Personal questions</h2>
+    <br>
+    {%for personalarticle in personalarticles%}
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)"><a href="article/{{personalarticle.id}}" class="list-group-item-action">{{personalarticle.title}}</a>
+          <span class="badge badge-dark badge-pill float-right">{{personalarticle.answered}}</span>
+          <span class="badge badge-dark badge-pill float-right">{{personalarticle.author}}</span>
+        </li>
+      </ul>
+
+    {%endfor%}
+  </div>
+{%endblock%}

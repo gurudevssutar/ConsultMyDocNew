@@ -1,0 +1,18 @@
+{%extends 'layout.html'%}
+
+
+{%block body%}
+  <div class="jumbotron">
+    <h2>Featured questions</h2>
+    <br>
+    {%for article in articles%}
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)"><a href="article/{{article.id}}" class="list-group-item-action">{{article.title}}</a>
+          <span class="badge badge-dark badge-pill float-right">{{article.answered}}</span>
+          <span class="badge badge-dark badge-pill float-right">{{article.author}}</span>
+        </li>
+      </ul>
+
+    {%endfor%}
+  </div>
+{%endblock%}

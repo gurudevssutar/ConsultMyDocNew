@@ -1,0 +1,18 @@
+{%extends "layout.html"%}
+
+
+{%block body%}
+
+    <div class="jumbotron">
+      <h1>Register</h1>
+      <h2>Please enter valid email-id for verification</h2>
+      {% from "includes/_formhelpers.html" import render_field %}
+      <form action="" method="post">
+        <div class="form-group">
+          {{render_field(form.email,class_="form-control")}}
+        </div>
+        <button type="submit" value="Submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+
+{%endblock%}

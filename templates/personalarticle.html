@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>{{personalarticle.title}}</h1>
+  {% if session.userrole %}
+  <div>
+    <form action="{{url_for('delete_personalarticle', id=personalarticle.id)}}" method="post" style="float: right;">
+      <input type="hidden" name="_method" value="DELETE">
+      <input type="submit" value="Delete" class="btn btn-danger">
+    </form><p>
+    <a href="/edit_personalarticle/{{personalarticle.id}}" class="btn btn-success" style="float: right;">Answer question</a>
+  </div>
+  {% endif %}
+  <p>Asked by {{personalarticle.author}} on {{personalarticle.create_date}}</p>
+  <hr>
+  <div>
+    {{personalarticle.body | safe}}
+  </div>
+  {% if session.isansweredp %}
+  <span style="color:  #00cc00;">{{personalarticle.answered}}</span>
+  {% else %}
+  <span style="color:  #ff0000;">{{personalarticle.answered}}</span>
+  {% endif %}
+{%endblock%}

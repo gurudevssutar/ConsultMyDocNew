@@ -1,0 +1,23 @@
+{%extends 'layout.html'%}
+
+
+{%block body%}
+  <div class="jumbotron">
+    <nav class="navbar navbar-light bg-light justify-content-between" style="float: right;">
+        <form class="form-inline" action="/profile/" method="POST">
+          <input class="form-control mr-sm-2" type="search" placeholder="Search User" aria-label="Search" id="search" name="search">
+          <button class="btn btn-success" type="submit">Search</button>
+        </form>
+      </nav>
+    <h2>User Search Results</h2>
+    <br>
+    {% for user in searchuser %}
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)"><a href="/user/{{user.username}}" class="list-group-item-action">{{user.username}}</a>
+          <span class="badge badge-dark badge-pill float-right">{{user.name}}</span>
+        </li>
+      </ul>
+
+    {%endfor%}
+  </div>
+{%endblock%}

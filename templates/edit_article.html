@@ -1,0 +1,17 @@
+{%extends 'layout.html'%}
+
+
+{%block body%}
+
+    <div class="jumbotron">
+      <h1>Question and answers</h1>
+      {% from "includes/_formhelpers.html" import render_field %}
+      <form action="" method="POST">
+        <div class="form-group">
+          {{render_field(form.body,class_="form-control",id="editor")}}
+        </div>
+        <button type="submit" value="Submit" class="btn btn-success">Submit</button>
+      </form>
+    </div>
+
+{%endblock%}

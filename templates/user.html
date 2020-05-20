@@ -1,0 +1,56 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+  <h1>{{userg.name}}</h1>
+  {% if session.username==userg.username and not session.userrole %}
+    <a class="btn btn-success" href="/add_article" style="float: right;">Ask question</a>
+  {% endif %}
+  <p>Account created by {{userg.name}} on {{userg.register_date}} by the username {{userg.username}}</p>
+  <hr>
+  {% if userg.userrole =='P' %}
+  <h2>Questions Asked by {{userg.name}}: </h2>
+  {%for article in userarticle %}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)"><a href="/article/{{article.id}}" class="list-group-item-action">{{article.title}}</a>
+      <span class="badge badge-dark badge-pill float-right">{{article.answered}}</span>
+      <span class="badge badge-dark badge-pill float-right">{{article.create_date}}</span>
+    </li>
+  </ul>
+
+{%endfor%}
+{% if userg.username==session.username or session.userrole %}
+<h2>Personal questions: </h2>
+{%for personalarticle in userpersonalarticle%}
+<ul class="list-group list-group-flush">
+  <li class="list-group-item" style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)"><a href="/article/{{personalarticle.id}}" class="list-group-item-action">{{personalarticle.title}}</a>
+    <span class="badge badge-dark badge-pill float-right">{{personalarticle.answered}}</span>
+    <span class="badge badge-dark badge-pill float-right">{{personalarticle.create_date}}</span>
+  </li>
+</ul>
+
+{%endfor%}
+{% endif %}
+{% endif %}
+{% if userg.userrole=='D' %}
+  <h2>Questions Answered by {{userg.name}} are: </h2>
+  {%for article in doctorans %}
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item" style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)"><a href="/article/{{article.question_id}}" class="list-group-item-action">{{article.questiontitle}}</a>
+      <span class="badge badge-dark badge-pill float-right">{{article.author}}</span>
+      <span class="badge badge-dark badge-pill float-right">{{article.create_date}}</span>
+    </li>
+  </ul>
+{%endfor%}
+{% if session.userrole or session.username==author %}
+<h2>Personal Questions Answered by {{userg.name}} are: </h2>
+{%for article in doctoranspersonal %}
+<ul class="list-group list-group-flush">
+  <li class="list-group-item" style="background: linear-gradient(to right, #ffff66 0%, #ff9933 100%)"><a href="/article/{{article.question_id}}" class="list-group-item-action">{{article.questiontitle}}</a>
+    <span class="badge badge-dark badge-pill float-right">{{article.author}}</span>
+    <span class="badge badge-dark badge-pill float-right">{{article.create_date}}</span>
+  </li>
+</ul>
+{%endfor%}
+{%endif%}
+{% endif %}
+{%endblock%}
